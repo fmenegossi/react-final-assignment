@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import { connect as subscribeToWebsocket } from '../actions/websocket'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import fetchBatchStudents from '../actions/students/fetch'
-import { connect as subscribeToWebsocket } from '../actions/websocket'
 import StudentItem from '../components/StudentItem'
 
 // const studentShape = PropTypes.shape({
