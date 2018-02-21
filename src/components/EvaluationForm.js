@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { connect as subscribeToWebsocket } from '../actions/websocket'
 import createEvaluation from '../actions/evaluations/create'
 
@@ -22,13 +20,12 @@ class EvaluationForm extends PureComponent {
       color: color.value,
       remarks: remarks.value
     }
-    console.log(newEvaluation)
+
     createEvaluation(newEvaluation)
+
   }
 
   render() {
-    const { student } = this.props
-
     return (
       <div className="Game">
         <h1>Evaluation Form:</h1>
@@ -60,7 +57,7 @@ class EvaluationForm extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ currentUser }, {}) => {
+const mapStateToProps = ({ currentUser }) => {
   return {
     currentUser
   }
@@ -68,6 +65,5 @@ const mapStateToProps = ({ currentUser }, {}) => {
 
 export default connect(mapStateToProps, {
   subscribeToWebsocket,
-  createEvaluation,
-  push
+  createEvaluation
 })(EvaluationForm)
