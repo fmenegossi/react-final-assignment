@@ -1,5 +1,4 @@
 import API from '../../api/client'
-import {BATCH_STUDENTS_FETCHED} from '../batches/subscribe'
 import {
   APP_LOADING,
   APP_DONE_LOADING,

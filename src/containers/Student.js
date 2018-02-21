@@ -22,7 +22,7 @@ class Student extends PureComponent {
   }
 
   componentWillMount() {
-    const { student, batch, fetchBatchStudents, fetchOneBatch, subscribeToWebsocket } = this.props
+    const { fetchBatchStudents, fetchOneBatch, subscribeToWebsocket } = this.props
     const { batchId } = this.props.match.params
 
     subscribeToWebsocket()
@@ -33,8 +33,7 @@ class Student extends PureComponent {
   goToNext = studentId => event => this.props.push(`/student/${studentId}`)
 
   render() {
-    const { student, push } = this.props
-    const { batchId } = this.props.match.params
+    const { student } = this.props
 
     if(!student) return null
 
@@ -43,7 +42,7 @@ class Student extends PureComponent {
         <h1>Student Page</h1>
         <span style={{backgroundColor:student.currentColor}}>{student.name}</span><br/>
         <img alt="" src={student.photo} /><br/>
-        
+
         <h2>Debug Props</h2>
         <pre>{JSON.stringify(this.props, true, 2)}</pre>
       </div>
