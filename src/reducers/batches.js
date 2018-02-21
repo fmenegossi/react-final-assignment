@@ -11,8 +11,8 @@ export default (state = [], { type, payload } = {}) => {
       return [ ...payload ]
 
     case FETCHED_ONE_BATCH :
-      const gameIds = state.map(g => g._id)
-      if (gameIds.indexOf(payload._id) < 0) {
+      const batchIds = state.map(b => b._id)
+      if (batchIds.indexOf(payload._id) < 0) {
         return [{ ...payload }].concat(state)
       }
       return state.map((batch) => {
@@ -23,8 +23,8 @@ export default (state = [], { type, payload } = {}) => {
       })
 
     case BATCH_CREATED :
-      const newGame = { ...payload }
-      return [newGame].concat(state)
+      const newBatch = { ...payload }
+      return [newBatch].concat(state)
 
     case BATCH_UPDATED :
       return state.map((batch) => {
