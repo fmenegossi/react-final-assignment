@@ -2,9 +2,14 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+
 import { connect as subscribeToWebsocket } from '../actions/websocket'
 import fetchBatchStudents from '../actions/students/fetch'
 import {fetchOneBatch} from '../actions/batches/fetch'
+import {fetchStudentEvaluations} from '../actions/evaluations/fetch'
+
+import EvaluationForm from '../components/EvaluationForm'
+import EvaluationsBar from '../components/EvaluationsBar'
 
 export const studentShape = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -22,19 +27,24 @@ class Student extends PureComponent {
   }
 
   componentWillMount() {
-    const { student, batch, fetchBatchStudents, fetchOneBatch, subscribeToWebsocket } = this.props
-    const { batchId } = this.props.match.params
+    const {
+        fetchBatchStudents,
+        fetchOneBatch,
+        subscribeToWebsocket,
+        fetchStudentEvaluations,
+        push } = this.props
+    const { batchId, studentId } = this.props.match.params
 
     subscribeToWebsocket()
     fetchBatchStudents(batchId)
     fetchOneBatch(batchId)
+    fetchStudentEvaluations(studentId)
   }
 
-  goToNext = studentId => event => this.props.push(`/student/${studentId}`)
+  goToNext = studentId => event => this.props.push(`/student/${this.props.nextStudent}`)
 
   render() {
-    const { student, push } = this.props
-    const { batchId } = this.props.match.params
+    const { student, evaluations } = this.props
 
     if(!student) return null
 
@@ -42,16 +52,16 @@ class Student extends PureComponent {
       <div className="Game">
         <h1>Student Page</h1>
         <span style={{backgroundColor:student.currentColor}}>{student.name}</span><br/>
-        <img alt="" src={student.photo} /><br/>
-        
-        <h2>Debug Props</h2>
-        <pre>{JSON.stringify(this.props, true, 2)}</pre>
+        <img alt="" src={student.photo} /><br/><br/>
+
+        <EvaluationsBar evaluations={evaluations}/>
+        <EvaluationForm student={student} />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ currentUser, batches, batchStudents }, { match }) => {
+const mapStateToProps = ({ currentUser, batches, batchStudents, evaluations }, { match }) => {
   const batch = batches.filter((b) => (b._id === match.params.batchId))[0]
   const student = batchStudents.filter((s) => (s._id === match.params.studentId))[0]
 
@@ -67,11 +77,13 @@ const mapStateToProps = ({ currentUser, batches, batchStudents }, { match }) => 
     batch,
     nextStudent,
     currentUser,
-    batchStudents
+    batchStudents,
+    evaluations
   }
 }
 
 export default connect(mapStateToProps, {
+  fetchStudentEvaluations,
   subscribeToWebsocket,
   fetchBatchStudents,
   fetchOneBatch,

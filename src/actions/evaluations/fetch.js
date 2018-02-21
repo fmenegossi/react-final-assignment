@@ -6,16 +6,13 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
-export const FETCH_ALL_STUDENTS = 'FETCH_ALL_STUDENTS'
-export const FETCH_ONE_STUDENT = 'FETCH_ONE_STUDENT'
-
 const api = new API()
 
-export default (batchId) => {
+export default () => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.get(`/batches/${batchId}/students`)
+    api.get(`/evaluations`)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
@@ -30,19 +27,14 @@ export default (batchId) => {
   }
 }
 
-export const fetchAllStudents = () =>{
+export const fetchOneEvaluation = (evaluationId) =>{
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.get(`/students`)
+    api.get(`/evaluations/${evaluationId}`)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-
-        dispatch({
-          type: FETCH_ALL_STUDENTS,
-          payload: result.body
-        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
@@ -54,19 +46,15 @@ export const fetchAllStudents = () =>{
   }
 }
 
-export const fetchOneStudent = (studentId) =>{
+export const fetchStudentEvaluations = (studentId) => {
+  console.log('passoooooooou')
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.get(`/students/${studentId}`)
+    api.get(`/evaluations/student/${studentId}`)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-
-        dispatch({
-          type: FETCH_ONE_STUDENT,
-          payload: result.body
-        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
