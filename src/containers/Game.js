@@ -62,7 +62,7 @@ class Game extends PureComponent {
       .join(' vs ')
 
     return (
-      <div style={{ display: 'flex', flexFlow: 'column wrap', alignItems: 'center' }} className="Game">
+      <div style={{ display: 'flex', flexFlow: 'column wrap', alignItems: 'center' }}>
         <h1>Pick Your Weapon</h1>
         <p>{title}</p>
 

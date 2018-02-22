@@ -9,11 +9,12 @@ export default (state = [], { type, payload } = {}) => {
       return  [...payload]
 
     case STUDENT_UPDATED:
-      if(!studentIds.includes(payload._id)){
-        return [{...state, ...payload}]
-      }
-
-      return [payload]
+      return state.map((student) => {
+        if (student._id === payload._id) {
+          return { ...payload }
+        }
+        return student
+      })
 
     default :
       return state
