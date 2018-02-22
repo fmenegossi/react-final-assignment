@@ -47,7 +47,6 @@ export const fetchOneEvaluation = (evaluationId) =>{
 }
 
 export const fetchStudentEvaluations = (studentId) => {
-  console.log('passoooooooou')
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 

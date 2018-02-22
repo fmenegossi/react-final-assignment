@@ -14,15 +14,15 @@ class StudentItem extends PureComponent {
     const {student, onClick} = this.props
 
     return(
-      <div class="row">
-        <span class="click-item" onClick={onClick}>
-          <div class="col-md-8">
+      <div className="row">
+        <span className="click-item" onClick={onClick}>
+          <div className="col-md-8">
             {student.name}
           </div>
-          <div class="col-md-2">
-            <img alt="" class="student-item-photo" src={student.photo} />
+          <div className="col-md-2">
+            <img alt="" className="student-item-photo" src={student.photo} />
           </div>
-          <div class={`col-md-2 student.currentColor`}>
+          <div className={`col-md-2 student.currentColor`}>
           </div>
         </span>
       </div>

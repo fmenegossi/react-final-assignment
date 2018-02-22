@@ -6,9 +6,6 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
-export const FETCH_ALL_STUDENTS = 'FETCH_ALL_STUDENTS'
-export const FETCH_ONE_STUDENT = 'FETCH_ONE_STUDENT'
-
 const api = new API()
 
 export default (batchId) => {
@@ -38,11 +35,6 @@ export const fetchAllStudents = () =>{
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-
-        dispatch({
-          type: FETCH_ALL_STUDENTS,
-          payload: result.body
-        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
@@ -62,11 +54,6 @@ export const fetchOneStudent = (studentId) =>{
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
-
-        dispatch({
-          type: FETCH_ONE_STUDENT,
-          payload: result.body
-        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })

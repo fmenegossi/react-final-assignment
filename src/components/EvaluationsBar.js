@@ -1,11 +1,7 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import { connect as subscribeToWebsocket } from '../actions/websocket'
 
 class EvaluationsBar extends PureComponent {
-  renderEvaluation(evaluation) {
+  renderEvaluation(evaluation, index) {
     const style = {
       width:'30px',
       height:'30px',
@@ -15,10 +11,10 @@ class EvaluationsBar extends PureComponent {
       backgroundColor: evaluation.color
     }
 
-    const date = new Date(evaluation.date)
+    //const date = new Date(evaluation.date)
 
     return (
-      <div className="" style={style}>
+      <div key={index} className="" style={style}>
 
       </div>
     )

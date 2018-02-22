@@ -26,6 +26,12 @@ class Student extends PureComponent {
     subscribeToWebsocket: PropTypes.func.isRequired
   }
 
+  constructor(){
+    super()
+
+    this.buttonClicked = null
+  }
+
   componentWillMount() {
     const {
         fetchBatchStudents,
@@ -41,7 +47,32 @@ class Student extends PureComponent {
     fetchStudentEvaluations(studentId)
   }
 
-  goToNext = studentId => event => this.props.push(`/student/${this.props.nextStudent}`)
+  clicked = (type) => this.buttonClicked = type
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+
+    const { updateStudent, student } = this.props
+    const { batchId, studentId } = this.props.match.params
+
+    if(this.buttonClicked === 'save') {
+      this.goToBatch()
+    } else {
+      this.goToNext()
+    }
+  }
+
+  goToNext = () => {
+    const { nextStudent } = this.props
+    const { batchId } = this.props.match.params
+
+    if(nextStudent) {
+      this.props.push(`/batch/${batchId}/student/${nextStudent}`)
+    } else {
+      this.goToBatch()
+    }
+  }
+  goToBatch = () => this.props.push(`/batch/${this.props.match.params.batchId}`)
 
   render() {
     const { student, evaluations } = this.props
@@ -50,9 +81,17 @@ class Student extends PureComponent {
 
     return (
       <div className="Game">
-        <h1>Student Page</h1>
-        <span style={{backgroundColor:student.currentColor}}>{student.name}</span><br/>
+        <h1 style={{backgroundColor:student.currentColor}}>{student.name}</h1>
         <img alt="" src={student.photo} /><br/><br/>
+
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="name"> Name: </label>
+          <input name="name" type="text" defaultValue={student.name} />
+          <label htmlFor="photo"> Photo (link): </label>
+          <input name="photo" type="text" defaultValue={student.photo} />
+          <input type="submit" value="Save" onClick={() => this.clicked('save')}/>
+          <input type="submit" value="Save & Next" onClick={() => this.clicked('savenext')}/>
+        </form>
 
         <EvaluationsBar evaluations={evaluations}/>
         <EvaluationForm student={student} />
