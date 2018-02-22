@@ -38,7 +38,7 @@ class EvaluationForm extends PureComponent {
 
 
     return (
-      <div className="Game">
+      <div>
         <h1>Evaluation Form:</h1>
 
         <form onSubmit={this.handleFormSubmit}>

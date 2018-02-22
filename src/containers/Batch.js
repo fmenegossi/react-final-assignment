@@ -6,20 +6,24 @@ import { connect as subscribeToWebsocket } from '../actions/websocket'
 import { fetchOneBatch } from '../actions/batches/fetch'
 import fetchBatchStudents from '../actions/students/fetch'
 import StudentItem from '../components/StudentItem'
+import CreateStudentForm from '../components/CreateStudentForm'
+import AskQuestionButton from '../components/AskQuestionButton'
 
+
+export const batchShape = {
+  _id: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  students: PropTypes.arrayOf(PropTypes.string).isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
+}
 
 class Batch extends PureComponent {
   static propTypes = {
     fetchOneBatch: PropTypes.func.isRequired,
     fetchBatchStudents: PropTypes.func.isRequired,
     subscribeToWebsocket: PropTypes.func.isRequired,
-    batch: PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      number: PropTypes.number.isRequired,
-      students: PropTypes.arrayOf(PropTypes.string).isRequired,
-      startDate: PropTypes.string.isRequired,
-      endDate: PropTypes.string.isRequired,
-    })
+    batch: PropTypes.shape(batchShape)
   }
 
   componentWillMount() {
@@ -45,13 +49,18 @@ class Batch extends PureComponent {
   }
 
   render() {
-    const { batch, batchStudents } = this.props
+    const { batch, batchStudents, fetchBatchStudents } = this.props
 
     if (!batch) return null
 
+    if(batchStudents.length !== batch.students.length) fetchBatchStudents(batch._id)
+
     return (
-      <div className="Game">
+      <div>
         <h1>Choose a Rookie</h1>
+
+        <CreateStudentForm batch={batch} /> <br/>
+        <AskQuestionButton students={batchStudents} /> <br/>
 
 
         {batchStudents.map(this.renderStudent)}

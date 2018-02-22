@@ -20,7 +20,7 @@ class CreateBatchForm extends PureComponent {
 
   render() {
     return (
-      <div className="Game">
+      <div>
         <h3>Create a batch:</h3>
 
         <form onSubmit={this.handleFormSubmit}>
