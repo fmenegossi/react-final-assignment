@@ -1,8 +1,42 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  background-color: #f6f6f6;
+}
+
+.click-item{
+  cursor: pointer;
+}
+
+.list-item:hover{
+  background-color: rgb(232, 232, 232);
+  font-weight: bold;
+}
+
+.list-item{
+  line-height: 2rem;
+  border-bottom: 1px rgb(210, 210, 210) solid;
+  font-size: 1.3rem;
+  vertical-align: center;
+}
+
+.red{
+  background-color: rgb(224, 76, 76);
+  color: rgb(255,255,255);
+}
+
+.yellow{
+  background-color: rgb(255, 227, 73);
+  color: rgb(0,0,0);
+}
+
+.green{
+  background-color: rgb(139, 249, 92);
+  color: rgb(0,0,0);
+}
+
+.student-card-name{
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
 }

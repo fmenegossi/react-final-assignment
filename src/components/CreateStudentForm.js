@@ -26,17 +26,27 @@ class CreateStudentForm extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div className="col-sm-8 col-md-6">
         <h3>Add a fellow student:</h3>
 
         <form onSubmit={this.handleFormSubmit}>
-          <label htmlFor="name"> Name: </label>
-          <input type="text" name="name"/>
-          <br/>
-          <label htmlFor="photo"> Photo(link): </label>
-          <input type="text" name="photo"/>
-
-          <input type="submit" value="Add a student!" />
+          <div className="form-group">
+            <div className="form-row">
+              <div className="col-md-4">
+                <label htmlFor="name"> Name: </label>
+                <input className="form-control form-control-sm" type="text" id="name" name="name"/>
+              </div>
+              <div className="col">
+                <label htmlFor="photo"> Photo(link): </label>
+                <input className="form-control form-control-sm" type="text" id="photo" name="photo"/>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="col">
+                <button className="btn btn-sm btn-primary" type="submit"> Add a student! </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     )

@@ -56,17 +56,28 @@ class Batch extends PureComponent {
     if(batchStudents.length !== batch.students.length) fetchBatchStudents(batch._id)
 
     return (
-      <div>
-        <h1>Choose a Rookie</h1>
+      <div className="col">
+        <div className="row">
+          <h1>Batch #{batch.number}</h1>
+        </div>
 
-        <CreateStudentForm batch={batch} /> <br/>
-        <AskQuestionButton students={batchStudents} /> <br/>
+        <div className="row">
+          <CreateStudentForm batch={batch} /> <br/>
+        </div>
+
+        <div className="row">
+          <div className="col-md-4 offset-md-5">
+            <AskQuestionButton students={batchStudents} /> <br/>
+          </div>
+        </div>
 
 
-        {batchStudents.map(this.renderStudent)}
+        <div className="row">
+          {batchStudents.map(this.renderStudent)}
+        </div>
 
-        <h2>Debug Props</h2>
-        <pre>{JSON.stringify(this.props, true, 2)}</pre>
+      {/*  <h2>Debug Props</h2>
+        <pre>{JSON.stringify(this.props, true, 2)}</pre>*/}
       </div>
     )
   }
