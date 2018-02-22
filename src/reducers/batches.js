@@ -1,8 +1,9 @@
-import { FETCHED_BATCHES, FETCHED_ONE_BATCH } from '../actions/batches/fetch'
 import {
   BATCH_CREATED,
   BATCH_UPDATED,
   BATCH_REMOVED,
+  FETCHED_BATCHES,
+  FETCHED_ONE_BATCH
 } from '../actions/batches/subscribe'
 
 export default (state = [], { type, payload } = {}) => {

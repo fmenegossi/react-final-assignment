@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { connect as subscribeToWebsocket } from '../actions/websocket'
-import fetchBatchStudents from '../actions/students/fetch'
+import fetchBatchStudents, { fetchOneStudent } from '../actions/students/fetch'
+import updateStudent from '../actions/students/update'
 import {fetchOneBatch} from '../actions/batches/fetch'
 import {fetchStudentEvaluations} from '../actions/evaluations/fetch'
 
@@ -23,6 +24,7 @@ class Student extends PureComponent {
     student: studentShape,
     fetchOneBatch: PropTypes.func.isRequired,
     fetchBatchStudents: PropTypes.func.isRequired,
+    // fetchOneStudent: PropTypes.func.isRequired,
     subscribeToWebsocket: PropTypes.func.isRequired
   }
 
@@ -34,11 +36,12 @@ class Student extends PureComponent {
 
   componentWillMount() {
     const {
-        fetchBatchStudents,
+        push,
         fetchOneBatch,
+        fetchBatchStudents,
         subscribeToWebsocket,
         fetchStudentEvaluations,
-        push } = this.props
+    } = this.props
     const { batchId, studentId } = this.props.match.params
 
     subscribeToWebsocket()
@@ -52,8 +55,16 @@ class Student extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const { updateStudent, student } = this.props
+    const { updateStudent, student, evaluations } = this.props
     const { batchId, studentId } = this.props.match.params
+    const { name, photo } = event.target
+
+    const updates = {
+      name: name.value || student.name,
+      photo: photo.value || student.photo
+    }
+
+    updateStudent(studentId, updates)
 
     if(this.buttonClicked === 'save') {
       this.goToBatch()
@@ -75,34 +86,39 @@ class Student extends PureComponent {
   goToBatch = () => this.props.push(`/batch/${this.props.match.params.batchId}`)
 
   render() {
-    const { student, evaluations } = this.props
+    const { student, currentEvaluations } = this.props
 
     if(!student) return null
 
     return (
-      <div className="Game">
+      <div>
         <h1 style={{backgroundColor:student.currentColor}}>{student.name}</h1>
         <img alt="" src={student.photo} /><br/><br/>
 
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="name"> Name: </label>
-          <input name="name" type="text" defaultValue={student.name} />
+          <input name="name" type="text" placeholder={student.name} />
           <label htmlFor="photo"> Photo (link): </label>
-          <input name="photo" type="text" defaultValue={student.photo} />
+          <input name="photo" type="text" placeholder={student.photo} />
           <input type="submit" value="Save" onClick={() => this.clicked('save')}/>
           <input type="submit" value="Save & Next" onClick={() => this.clicked('savenext')}/>
         </form>
 
-        <EvaluationsBar evaluations={evaluations}/>
+        <EvaluationsBar evaluations={currentEvaluations}/>
         <EvaluationForm student={student} />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ currentUser, batches, batchStudents, evaluations }, { match }) => {
+const mapStateToProps = ({ currentUser,
+                           batches,
+                           batchStudents,
+                           evaluations }, { match }) => {
   const batch = batches.filter((b) => (b._id === match.params.batchId))[0]
   const student = batchStudents.filter((s) => (s._id === match.params.studentId))[0]
+  const currentEvaluations = evaluations.filter((e) => (e.studentId === match.params.studentId))
+
 
   const currentPos = batchStudents.indexOf(student)
   let nextStudent = null
@@ -116,6 +132,7 @@ const mapStateToProps = ({ currentUser, batches, batchStudents, evaluations }, {
     batch,
     nextStudent,
     currentUser,
+    currentEvaluations,
     batchStudents,
     evaluations
   }
@@ -124,7 +141,8 @@ const mapStateToProps = ({ currentUser, batches, batchStudents, evaluations }, {
 export default connect(mapStateToProps, {
   fetchStudentEvaluations,
   subscribeToWebsocket,
-  fetchBatchStudents,
+  updateStudent,
   fetchOneBatch,
+  fetchBatchStudents,
   push
 })(Student)

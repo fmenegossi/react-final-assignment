@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
 import './Lobby.css'
+import CreateBatchForm from '../components/CreateBatchForm'
 
 class Batches extends PureComponent {
   componentWillMount() {
@@ -30,6 +31,7 @@ class Batches extends PureComponent {
     return (
       <div className="Lobby">
         <h1>Batches</h1>
+        <CreateBatchForm />
         <Paper className="paper">
           <Menu>
             {this.props.batches.map(this.renderBatch)}

@@ -7,12 +7,6 @@ import { fetchOneBatch } from '../actions/batches/fetch'
 import fetchBatchStudents from '../actions/students/fetch'
 import StudentItem from '../components/StudentItem'
 
-// const studentShape = PropTypes.shape({
-//   _id: PropTypes.string.isRequired,
-//   name: PropTypes.string.isRequired,
-//   photo: PropTypes.string.isRequired,
-//   currentColor: PropTypes.string.isRequired
-// })
 
 class Batch extends PureComponent {
   static propTypes = {
@@ -32,10 +26,10 @@ class Batch extends PureComponent {
     const { batch, fetchOneBatch, subscribeToWebsocket, fetchBatchStudents} = this.props
     const { batchId } = this.props.match.params
 
+    subscribeToWebsocket()
+
     if(!batch){fetchOneBatch(batchId)}
     fetchBatchStudents(batchId)
-
-    subscribeToWebsocket()
   }
 
   goToStudent = studentId => event => this.props.push(`/batch/${this.props.batch._id}/student/${studentId}`)

@@ -6,21 +6,21 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
-import { EVALUATION_CREATED } from './subscribe'
+import { STUDENT_UPDATED } from './subscribe'
 
 const api = new API()
 
-export default(evaluation) => {
+export default (studentId, updates) => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })
 
-    api.post('/evaluations', evaluation)
+    api.patch(`/students/${studentId}`, updates)
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
 
         dispatch({
-          type: EVALUATION_CREATED,
+          type: STUDENT_UPDATED,
           payload: result.body
         })
       })
