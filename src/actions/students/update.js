@@ -6,6 +6,8 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
+const api = new API()
+
 export default (studentId, updates) => {
   return (dispatch) => {
     dispatch({ type: APP_LOADING })

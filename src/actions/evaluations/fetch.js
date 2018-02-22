@@ -6,6 +6,12 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
+import {
+  STUDENT_EVALUATIONS_FETCHED,
+  ONE_EVALUATION_FETCHED,
+  ALL_EVALUATIONS_FETCHED
+} from './subscribe'
+
 const api = new API()
 
 export default () => {
@@ -16,6 +22,11 @@ export default () => {
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
+
+        dispatch({
+          type: ALL_EVALUATIONS_FETCHED,
+          payload: result.body
+        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
@@ -35,6 +46,11 @@ export const fetchOneEvaluation = (evaluationId) =>{
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
+
+        dispatch({
+          type: ONE_EVALUATION_FETCHED,
+          payload: result.body
+        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
@@ -54,6 +70,11 @@ export const fetchStudentEvaluations = (studentId) => {
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
+
+        dispatch({
+          type: STUDENT_EVALUATIONS_FETCHED,
+          payload: result.body
+        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })

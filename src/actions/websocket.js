@@ -27,7 +27,10 @@ export const connect = () => {
       }
     })
 
-    socket.on('action', dispatch)
+    socket.on('action', () => {
+      console.log(dispatch.type)
+      dispatch
+    })
     dispatch({ type: CONNECTED_TO_WEBSOCKET })
   }
 }
