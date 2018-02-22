@@ -22,23 +22,23 @@ class AskQuestionButton extends PureComponent {
     let size = null
 
     if(chance <= 48 ) {
-      if(redGroup.length === 0) return this.askQuestion()
-      
-      size = redGroup.length
-      position = Math.floor(Math.random() * size)
-      student = redGroup[position]
+      if(redGroup.length === 0) {
+        return this.askQuestion()
+      }
+
+      student = redGroup[Math.floor(Math.random() * (redGroup.length - 1))]
     } else if ((chance <= 82) && (chance > 48)) {
-      if(yellowGroup.length === 0) return this.askQuestion()
+      if(yellowGroup.length === 0) {
+        return this.askQuestion()
+      }
 
-      size = yellowGroup.length
-      position = Math.floor(Math.random() * size)
-      student = yellowGroup[position]
+      student = yellowGroup[Math.floor(Math.random() * (yellowGroup.length - 1))]
     } else if (chance > 82) {
-      if(greenGroup.length === 0) return this.askQuestion()
+      if(greenGroup.length === 0) {
+        return this.askQuestion()
+      }
 
-      size = greenGroup.length
-      position = Math.floor(Math.random() * size)
-      student = greenGroup[position]
+      student = greenGroup[Math.floor(Math.random() * (greenGroup.length - 1))]
     }
 
     alert(`Ask a question to ${student.name}.\nCurrent color: ${student.currentColor.toUpperCase()}`)
