@@ -2,10 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { replace, push } from 'react-router-redux'
-import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
 import signIn from '../actions/user/sign-in'
 import Title from '../components/UI/Title'
 
@@ -34,9 +30,11 @@ export class SignIn extends PureComponent {
 
   submitForm(event) {
     event.preventDefault()
+    const { email, password } = event.target
+
     const user = {
-      email: this.refs.email.getValue(),
-      password: this.refs.password.getValue(),
+      email: email.value,
+      password: password.value
     }
     this.props.signIn(user)
   }
@@ -47,26 +45,27 @@ export class SignIn extends PureComponent {
 
   render() {
     return (
-      <Paper style={ dialogStyle }>
-        <Title content="Sign In" level={2} />
+        <div className="col-md-4 offset-md-4 text-center" style={{marginTop:"1rem"}}>
+          <h1> Sign In </h1>
+          <form onSubmit={this.submitForm.bind(this)}>
+            <div className="form-group">
+              <div className="form-row">
+                <label htmlFor="email"> Email </label>
+                <input className="form-control" id="email" name="email" type="email" hintText="Email address" />
+              </div>
+              <div className="form-row">
+                <label htmlFor="email"> Password </label>
+                <input className="form-control" id="password" name="password" type="password" hintText="Password"  />
+              </div>
+              <div className="form-row">
+                <div className="col" style={{marginTop:"1rem"}}>
 
-        <form onSubmit={this.submitForm.bind(this)}>
-          <div className="input">
-            <TextField ref="email" type="email" hintText="Email address" />
-          </div>
-          <div className="input">
-            <TextField ref="password" type="password" hintText="Password"  />
-          </div>
-        </form>
-        <FlatButton
-          onClick={ this.signUp.bind(this) }
-          label="Sign up" />
-        <RaisedButton
-          style={ buttonStyle }
-          onClick={ this.submitForm.bind(this) }
-          label="Sign in"
-          primary={true} />
-      </Paper>
+                  <button type="submit" className="btn btn-success"> Sign In </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
     )
   }
 }

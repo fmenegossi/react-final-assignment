@@ -47,7 +47,7 @@ class AskQuestionButton extends PureComponent {
   render() {
     return (
       <div>
-        <button type="button" onClick={this.askQuestion}> Ask a Question! </button>
+        <button className="btn btn-lg btn-dark" type="button" onClick={this.askQuestion}> Ask a Question! </button>
       </div>
     )
   }

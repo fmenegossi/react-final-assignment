@@ -86,26 +86,76 @@ class Student extends PureComponent {
   goToBatch = () => this.props.push(`/batch/${this.props.match.params.batchId}`)
 
   render() {
-    const { student, currentEvaluations } = this.props
+    const { student, currentEvaluations, batch } = this.props
 
     if(!student) return null
 
     return (
-      <div>
-        <h1 style={{backgroundColor:student.currentColor}}>{student.name}</h1>
-        <img alt="" src={student.photo} /><br/><br/>
+      <div className="col-md-10 offset-md-1 mt-2">
+        <div className="row">
+          <div className="col text-center">
+            <div className="row">
+              <div className="col">
+                <h1 className={student.currentColor}>{student.name}</h1>
+              </div>
+            </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name"> Name: </label>
-          <input name="name" type="text" placeholder={student.name} />
-          <label htmlFor="photo"> Photo (link): </label>
-          <input name="photo" type="text" placeholder={student.photo} />
-          <input type="submit" value="Save" onClick={() => this.clicked('save')}/>
-          <input type="submit" value="Save & Next" onClick={() => this.clicked('savenext')}/>
-        </form>
+            <div className="row mb-1">
+              <EvaluationsBar evaluations={currentEvaluations}/>
+            </div>
+          </div>
+        </div>
 
-        <EvaluationsBar evaluations={currentEvaluations}/>
-        <EvaluationForm student={student} />
+        <div className="row">
+          <EvaluationForm student={student} />
+        </div>
+
+        <div className="row">
+          <div className="col-md-4">
+            <img className="img img-thumbnail" alt="" src={student.photo} />
+          </div>
+
+          <div className="col-md-8">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <div className="form-row">
+                  <label htmlFor="name"> Full Name: </label>
+                  <input id="name"
+                    className="form-control"
+                    name="name"
+                    type="text"
+                    placeholder={student.name}
+                  />
+                </div>
+
+                <div className="form-row">
+                  <label htmlFor="photo"> Photo (link): </label>
+                  <input id="photo"
+                    className="form-control"
+                    name="photo"
+                    type="text"
+                    placeholder={student.photo}
+                  />
+                </div>
+
+                <div className="form-row" style={{marginTop: "1rem"}}>
+                  <button
+                    className="btn btn-success"
+                    type="submit"
+                    onClick={() => this.clicked('save')}> Save </button>
+                  <button
+                    className="btn btn-warning ml-2"
+                    type="submit"
+                    onClick={() => this.clicked('savenext')}> Save & Next </button>
+                  <button
+                    className="btn btn-dark ml-2"
+                    type="button"
+                    onClick={this.goToBatch}> Back to Batch #{batch.number} </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     )
   }

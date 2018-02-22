@@ -20,20 +20,53 @@ class CreateBatchForm extends PureComponent {
 
   render() {
     return (
-      <div>
+      <div className="col-md-6">
         <h3>Create a batch:</h3>
 
         <form onSubmit={this.handleFormSubmit}>
-          <label htmlFor="number"> Batch number: </label>
-          <input type="number" name="number"/>
-          <br/>
-          <label htmlFor="startDate"> Start date: </label>
-          <input type="date" name="startDate"/>
-          <br/>
-          <label htmlFor="endDate"> End date: </label>
-          <input type="date" name="endDate"/>
-
-          <input type="submit" value="Create batch!" />
+          <div className="form-group">
+            <div className="form-row">
+              <div className="col-md-3">
+                Batch number:
+                <input
+                  className="form-control form-control-sm"
+                  type="number"
+                  id="number"
+                  name="number"
+                  placeHolder="Batch number"
+                  required/>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="col-md-4">
+                Start date:
+                <input
+                  className="form-control form-control-sm"
+                  type="date"
+                  id="startDate"
+                  name="startDate"
+                  required/>
+              </div>
+              <div className="col-md-4">
+                End date:
+                <input
+                  className="form-control form-control-sm"
+                  type="date"
+                  id="endDate"
+                  name="endDate"
+                  required/>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="col">
+                <button
+                  className="btn btn-sm btn-primary"
+                  type="submit">
+                  Create batch!
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     )

@@ -25,8 +25,14 @@ class EvaluationForm extends PureComponent {
 
     createEvaluation(newEvaluation)
 
-    const lastColor = evaluations[evaluations.length - 1].color
-    updateStudent(student._id, {currentColor: newEvaluation.color})
+    let lastColor = null
+
+    if(evaluations[evaluations.length - 1]){
+      lastColor = evaluations[evaluations.length - 1].color
+    } else {
+      lastColor = newEvaluation.color
+    }
+    updateStudent(student._id, {currentColor: lastColor})
   }
 
   render() {
@@ -38,30 +44,47 @@ class EvaluationForm extends PureComponent {
 
 
     return (
-      <div>
-        <h1>Evaluation Form:</h1>
-
+      <div className="col mt-3">
         <form onSubmit={this.handleFormSubmit}>
-          <label> Evaluation for date:
-            <input type="date" name="date" min={today} defaultValue={today}/>
-          </label>
-          <br/>
-          <label>
-            <input name="color" type="radio" value="red" defaultChecked/> RED
-          </label>
-          <label>
-            <input name="color" type="radio" value="yellow" /> YELLOW
-          </label>
-          <label>
-            <input name="color" type="radio" value="green" /> GREEN
-          </label>
-          <br />
-          <label>
-            Remarks:
-            <input name="remarks" type="text"/>
-          </label>
+          <div className="form-group">
+            <div className="form-row">
+              <div className="col-md-2">
+                <label htmlFor="date"> Evaluation date </label>
+                <input id="date"
+                  className="form-control form-control-sm"
+                  type="date"
+                  name="date"
+                  min={today}
+                  defaultValue={today}
+                />
+              </div>
 
-          <input type="submit" value="Save" />
+              <div className="col">
+                <label htmlFor="remarks"> Remarks </label>
+                <input id="remarks" className="form-control form-control-sm" name="remarks" type="text"/>
+              </div>
+
+              <div className="col mt-2 pt-4">
+                <label className="btn btn-sm btn-danger mr-2">
+                  <input name="color" type="radio" value="red" defaultChecked/> RED
+                </label>
+                <label className="btn btn-sm btn-warning mr-2">
+                  <input name="color" type="radio" value="yellow" /> YELLOW
+                </label>
+                <label className="btn btn-sm btn-success mr-2">
+                  <input name="color" type="radio" value="green" /> GREEN
+                </label>
+              </div>
+            </div>
+
+
+
+            <div className="form-row">
+              <div className="col">
+                <button className="btn btn-sm btn-primary" type="submit"> Save Evaluation </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     )
