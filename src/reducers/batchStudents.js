@@ -13,7 +13,7 @@ export default (state = [], { type, payload } = {}) => {
         return [{...state, ...payload}]
       }
 
-      return [...payload]
+      return [payload]
 
     default :
       return state

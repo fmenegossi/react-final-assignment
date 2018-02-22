@@ -6,6 +6,8 @@ import {
   LOAD_SUCCESS
 } from '../loading'
 
+import { STUDENT_UPDATED } from './subscribe'
+
 const api = new API()
 
 export default (studentId, updates) => {
@@ -16,6 +18,11 @@ export default (studentId, updates) => {
       .then((result) => {
         dispatch({ type: APP_DONE_LOADING })
         dispatch({ type: LOAD_SUCCESS })
+
+        dispatch({
+          type: STUDENT_UPDATED,
+          payload: result.body
+        })
       })
       .catch((error) => {
         dispatch({ type: APP_DONE_LOADING })
