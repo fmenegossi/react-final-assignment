@@ -65,6 +65,9 @@ class Student extends PureComponent {
 
     updateStudent(studentId, updates)
 
+    name.value = ''
+    photo.value = ''
+
     if(this.buttonClicked === 'save') {
       this.goToBatch()
     } else {

@@ -21,6 +21,9 @@ class CreateStudentForm extends PureComponent {
       photo: photo.value
     }
 
+    name.value = ''
+    photo.value = ''
+
     createStudentInBatch(newStudent, batch)
   }
 
