@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { createStudentInBatch } from '../actions/students/create'
 import { studentShape } from '../containers/Student'
 
 class AskQuestionButton extends PureComponent {
@@ -18,8 +16,6 @@ class AskQuestionButton extends PureComponent {
 
     const chance = Math.floor(Math.random() * 100);
     let student = null
-    let position = null
-    let size = null
 
     if(chance <= 48 ) {
       if(redGroup.length === 0) {
