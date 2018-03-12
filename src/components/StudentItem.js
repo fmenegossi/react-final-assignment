@@ -15,10 +15,10 @@ class StudentItem extends PureComponent {
 
     return(
       <div className="col-sm-2 col-md-3">
-        <div class="card student-card click-item" onClick={onClick}>
-          <img class="card-img-top" src={student.photo} alt="" />
-          <div class={`card-body ${student.currentColor}`}>
-            <p class="card-text student-card-name">{student.name}</p>
+        <div className="card student-card click-item" onClick={onClick}>
+          <img className="card-img-top" src={student.photo} alt="" />
+          <div className={`card-body ${student.currentColor}`}>
+            <p className="card-text student-card-name">{student.name}</p>
           </div>
         </div>
       </div>

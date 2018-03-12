@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { connect as subscribeToWebsocket } from '../actions/websocket'
 import createEvaluation from '../actions/evaluations/create'
+import updateEvaluation from '../actions/evaluations/update'
 import updateStudent from '../actions/students/update'
 
 class EvaluationForm extends PureComponent {
@@ -12,7 +13,13 @@ class EvaluationForm extends PureComponent {
   handleFormSubmit = (event) => {
     event.preventDefault()
 
-    const { student, currentUser, createEvaluation, updateStudent, evaluations } = this.props
+    const {
+      student,
+      currentUser,
+      createEvaluation,
+      updateEvaluation,
+      updateStudent,
+      evaluations } = this.props
     const {date, color, remarks} = event.target
     const newEvaluation = {
       studentId: student._id,
@@ -22,12 +29,26 @@ class EvaluationForm extends PureComponent {
       remarks: remarks.value
     }
 
+    const existentEvaluation = evaluations.filter((evaluation) => {
+      const evalDate = (new Date(evaluation.date)).toLocaleDateString()
+      console.log(`evalDate: ${evalDate}\nnewDate: ${newEvaluation.date}`)
+      return (evalDate === newEvaluation.date)
+    })
 
-    createEvaluation(newEvaluation)
+    debugger
+
+    const isNewEvaluation = existentEvaluation.length === 0
+
+    if(!isNewEvaluation){
+      const updatedEvaluation = {...existentEvaluation[0], ...newEvaluation}
+      updateEvaluation(updatedEvaluation)
+    } else {
+      createEvaluation(newEvaluation)
+    }
 
     let lastColor = null
 
-    if(evaluations[evaluations.length - 1]){
+    if(!isNewEvaluation){
       lastColor = evaluations[evaluations.length - 1].color
     } else {
       lastColor = newEvaluation.color
@@ -101,5 +122,6 @@ const mapStateToProps = ({ currentUser, evaluations }) => {
 export default connect(mapStateToProps, {
   subscribeToWebsocket,
   createEvaluation,
+  updateEvaluation,
   updateStudent
 })(EvaluationForm)

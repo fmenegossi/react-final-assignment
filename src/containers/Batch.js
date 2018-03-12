@@ -15,7 +15,7 @@ export const batchShape = {
   number: PropTypes.number.isRequired,
   students: PropTypes.arrayOf(PropTypes.string).isRequired,
   startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired
 }
 
 class Batch extends PureComponent {

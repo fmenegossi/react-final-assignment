@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { connect as subscribeToWebsocket } from '../actions/websocket'
-import fetchBatchStudents, { fetchOneStudent } from '../actions/students/fetch'
+import fetchBatchStudents from '../actions/students/fetch'
 import updateStudent from '../actions/students/update'
 import {fetchOneBatch} from '../actions/batches/fetch'
 import {fetchStudentEvaluations} from '../actions/evaluations/fetch'
@@ -36,7 +36,6 @@ class Student extends PureComponent {
 
   componentWillMount() {
     const {
-        push,
         fetchOneBatch,
         fetchBatchStudents,
         subscribeToWebsocket,
@@ -55,8 +54,8 @@ class Student extends PureComponent {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    const { updateStudent, student, evaluations } = this.props
-    const { batchId, studentId } = this.props.match.params
+    const { updateStudent, student } = this.props
+    const { studentId } = this.props.match.params
     const { name, photo } = event.target
 
     const updates = {
@@ -65,6 +64,9 @@ class Student extends PureComponent {
     }
 
     updateStudent(studentId, updates)
+
+    name.value = ''
+    photo.value = ''
 
     if(this.buttonClicked === 'save') {
       this.goToBatch()
@@ -89,6 +91,7 @@ class Student extends PureComponent {
     const { student, currentEvaluations, batch } = this.props
 
     if(!student) return null
+    if(!batch) return null
 
     return (
       <div className="col-md-10 offset-md-1 mt-2">

@@ -10,7 +10,6 @@ import { STUDENT_CREATED } from './subscribe'
 import { BATCH_UPDATED } from '../batches/subscribe'
 
 const api = new API()
-const batchApi = new API()
 
 export default(newStudent) => {
   return (dispatch) => {

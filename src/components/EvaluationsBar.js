@@ -21,7 +21,7 @@ class EvaluationsBar extends PureComponent {
     const date = (new Date(evaluation.date)).toLocaleDateString()
 
     return (
-      <span className={`badge badge-pill badge-${style}`}>{date}</span>
+      <span key={index} className={`badge badge-pill badge-${style}`}>{date}</span>
     )
   }
 
@@ -38,7 +38,7 @@ class EvaluationsBar extends PureComponent {
                 evaluations.map(this.renderEvaluation)
               :
               <div className="col">
-                <div class="alert alert-warning" role="alert">
+                <div className="alert alert-warning" role="alert">
                   No evaluations to show!
                 </div>
               </div>
