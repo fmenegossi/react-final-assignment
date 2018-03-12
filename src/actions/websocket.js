@@ -27,9 +27,7 @@ export const connect = () => {
       }
     })
 
-    socket.on('action', () => {
-      dispatch
-    })
+    socket.on('action', dispatch)
     dispatch({ type: CONNECTED_TO_WEBSOCKET })
   }
 }

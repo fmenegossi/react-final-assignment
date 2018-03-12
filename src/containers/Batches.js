@@ -19,7 +19,7 @@ class Batches extends PureComponent {
     let endDate = new Date(batch.endDate).toLocaleDateString()
 
     return (
-      <div className="row click-item list-item" onClick={this.goToBatch(batch._id)}>
+      <div key={index} className="row click-item list-item" onClick={this.goToBatch(batch._id)}>
         <div className="col-md-4 pull-left">
           Batch #{batch.number}
         </div>

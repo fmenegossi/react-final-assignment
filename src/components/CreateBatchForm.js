@@ -33,7 +33,7 @@ class CreateBatchForm extends PureComponent {
                   type="number"
                   id="number"
                   name="number"
-                  placeHolder="Batch number"
+                  placeholder="Batch number"
                   required/>
               </div>
             </div>
