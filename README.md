@@ -12,7 +12,7 @@
 	 - Students with status YELLOW have 33% of chance to be asked
 	 - Students with status GREEN have 18% of chance to be asked
 
-### Screenshots:
+## Screenshots:
 ##### Class view
 ![Class View](http://res.cloudinary.com/fmenegossi/image/upload/v1520874019/batch_view_ozbvji.png "Class View")
 
@@ -22,5 +22,5 @@
 ![Class View](http://res.cloudinary.com/fmenegossi/image/upload/v1520874023/student_view_ssaezk.png "Student View")
 
 **To run it:**
-- First, you'll need to start the backend server (URL_BACKEND_HERE)
+- First, you'll need to start the backend server [Express Backend API](https://github.com/fmenegossi/express-final-assignment "Express Backend API")
 - Then, run `yarn start` from a terminal inside the project root folder
